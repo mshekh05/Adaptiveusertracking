@@ -103,7 +103,9 @@
             myObj = JSON.parse(this.responseText);
             console.log(myObj)
             if (myObj.username== undefined || !myObj.username)
-            {window.location.replace('index.html');
+            { alert("Please login")
+              window.location.replace('index.html');
+            
               
             }
             document.getElementById("username").innerHTML += '  '+ myObj.username;
