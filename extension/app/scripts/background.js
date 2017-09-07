@@ -38,7 +38,11 @@ chrome.runtime.onMessageExternal.addListener(
 
 
 function logAction( action,link,actionDesc){
-  var actionLog = {action:action, actionLink:link, actionDesc:actionDesc};
+  var today = new Date();
+  var dd = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+  var time = ("0" + today.getHours()).slice(-2) + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
+  var date_time = dd+' '+ time;
+  var actionLog = {timestamp:date_time ,action:action, actionLink:link, actionDesc:actionDesc};
   var username=localStorage.getItem("username")
   alert("hello" + username)
   
@@ -52,7 +56,8 @@ function logAction( action,link,actionDesc){
       console.log("Not successful");
     }
   };
-  xmlhttp.open("POST", "http://localhost:8080/action");
+  xmlhttp.open("POST", "https://adaptivedb.herokuapp.com/action");
+  // http://localhost:8080
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.send(JSON.stringify(actionLog));
 }

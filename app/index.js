@@ -59,6 +59,7 @@ MongoClient.connect(url, function (err, db) {
     else {
       request.session.user = user;
       var today = new Date();
+      console.log(today)
       var dd = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
       var time = ("0" + today.getHours()).slice(-2) + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
       console.log(dd, time)
@@ -122,6 +123,7 @@ MongoClient.connect(url, function (err, db) {
       console.log(result.email)
     }
     else {
+      request.session.user = user;
       db.collection("users").insertOne(query, function (err, result) {
         if (err) response.json({ "response": "Failed" });
         console.log("1 document inserted");
@@ -167,8 +169,20 @@ console.log("USER:" +request.session.user)
         response.json({ "response": "Failed" });
       }
       else {
-        response.json({username:user,log:result.log});
-        db.close();
+        var result1 = result;
+        db.collection("user_login_activity").findOne(query, function (err, result2) {
+          if (err) response.json({ "response": "Failed" });
+          if (result2 == null) {
+            db.close();
+            response.json({ "response": "Failed" });
+          }
+          else {
+           
+            response.json({username:user,log:result1.log,activity:result2.activity});
+            db.close();
+          }
+        });
+        
       }
     });
   });

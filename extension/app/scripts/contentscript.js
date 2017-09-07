@@ -55,7 +55,7 @@ for(var i=0; i<jobs.length; i++){
   jobs[i].onclick = function () {
     var action="Jobs"
     var description = "User selected a browsing jobs"
-    var link = "https://stackoverflow.com//jobs?med=site-ui&ref=jobs-tab";
+    var link = "https:////stackoverflow.com//jobs?med=site-ui&ref=jobs-tab";
     chrome.runtime.sendMessage({action:action,actionLink:link,actionDesc:description});
   }
 }
