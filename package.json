@@ -1,0 +1,63 @@
+{
+  "name": "generator-express",
+  "version": "2.15.0",
+  "description": "A nodejs express generator for Yeoman",
+  "keywords": [
+    "yeoman-generator",
+    "express",
+    "scaffold"
+  ],
+  "homepage": "https://github.com/petecoop/generator-express",
+  "bugs": "https://github.com/petecoop/generator-express/issues",
+  "author": {
+    "name": "petecoop",
+    "email": "pete@petecoop.co.uk",
+    "url": "http://petecoop.co.uk"
+  },
+  "contributors": [
+    {
+      "name": "nategood",
+      "email": "me@nategood.com",
+      "url": "http://nategood.com"
+    }
+  ],
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petecoop/generator-express.git"
+  },
+  "scripts": {
+
+    "start": "node app/index.js",
+    "test": "mocha",
+    "test:generate": "npm link && npm run test:generate:basic && npm run test:generate:mvc",
+    "test:generate:basic": "mkdir temp; cd temp && yo express --createDirectory true --dirname one --basic true --viewEngine handlebars --cssPreprocessor css --buildTool gulp && cd one && npm run test:coverage",
+    "test:generate:mvc": "mkdir temp; cd temp && yo express --createDirectory true --dirname two --mvc true --viewEngine handlebars --cssPreprocessor css --database sqlite --buildTool gulp && cd two && npm run test:coverage"
+  },
+  "dependencies": {
+    "glob": "^7.0.0",
+    "mkdirp": "^0.5.0",
+    "underscore.string": "^3.0.3",
+    "yeoman-generator": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "rimraf": "^2.3.2",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.4.0",
+    "amqplib": "^0.5.1",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "yargs": "^8.0.2"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

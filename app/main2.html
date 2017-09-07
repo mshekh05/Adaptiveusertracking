@@ -1,0 +1,97 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Table Style</title>
+    <!-- <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;"> -->
+    <link rel="stylesheet" href="css/responsive.css">
+    
+  </head>
+  
+  <body>
+
+      <h1>Welcome <span id="username" class="yellow"></pan></h1>
+        <h2>Please click  <a href="http://stackoverflow.com" target="_blank">Here</a> to start tracking</h2>
+        
+    <div>  
+<p id="demo" ></p>
+
+
+
+<button id="logout" class="button button-block"  />Log In</button> 
+
+
+<!-- <div class="table-title" >  <h3 id = 'username' >Welcome  </h3> </div> 
+<h1><span class="blue">&lt;</span>Table<span class="blue">&gt;</span> <span class="yellow">Responsive</pan></h1>
+  <h2>Created with love by <a href="http://pablogarciafernandez.com" target="_blank">Pablo García Fernández</a></h2>
+
+
+    <!-- <div class="container">
+      <div class="table-login" >
+    
+      </div>
+      <div>
+    <h3> Why did You blah blah blah ? </h3>
+      </div> --> -->
+    <!-- style="width:50vw" -->
+    </div>
+    
+
+
+
+
+  <script>
+    
+    // var table = " <table class='table-fill'>  <thead>  <tr>  <th class='text-left'>Date</th>  <th class='text-left'>Time</th>  </tr>  </thead>  <tbody class='table-hover'> "
+    table = "<table class='container'> <thead> <tr> <th><h1>Date</h1></th>              <th><h1>Time</h1></th>                          </tr>          </thead>          <tbody>"
+      var myStorage = window.localStorage;
+    var username = localStorage.getItem("username")
+    if (!username || username== undefined)
+    {
+      window.location.replace('index.html');
+    }
+    else{
+    
+    var query = { username: username  };
+    
+      console.log("user: "+localStorage.getItem("username"))
+      user = localStorage.getItem("username")
+    // dbParam = JSON.stringify(obj);
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            console.log(myObj)
+            document.getElementById("username").innerHTML += '  '+ myObj.username;
+            for (x in myObj.log.reverse()) {
+              table+= '<tr>'
+              table += "<td >" + myObj.log[x].date + "</td>";
+              table += "<td >" + myObj.log[x].time + "</td>";
+              table+= "</tr>"
+            }
+            table += "</tbody>  </table>"        
+            document.getElementById("demo").innerHTML = table;
+        }
+    };
+    xmlhttp.open("GET", "/log", true);
+    // xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    // xmlhttp.send(JSON.stringify({
+    //   "username":user    
+    // })); 
+    xmlhttp.send()
+
+  }
+  document.getElementById("logout").onclick = function () { 
+    localStorage.removeItem("username");
+    window.location.replace('index.html');
+
+ 
+  }
+
+  // The ID of the extension we want to talk to.
+
+  
+
+    </script>
+  
+    </body>
