@@ -58,11 +58,12 @@ document.getElementById("login-submit").onclick = function (event) {
             
             if (JSON.parse(xmlHttp.responseText).response == "Success"){
                 alert("Login Success")
+                window.location.replace('main.html');
                 // myStorage = window.localStorage;
                 // // chrome.storage.local.set({'username1': username});
                 
                 // localStorage.setItem('username', username);
-                window.location.replace('main.html');
+                
             }
             else{
                 alert("Login Failed")
@@ -100,7 +101,7 @@ document.getElementById("signup-submit").onclick = function (event) {
             
             if (JSON.parse(xmlHttp.responseText).response == "Success"){
                 alert("new user created")
-                window.location.replace('Main.html');
+                window.location.replace('main.html');
             }
             else{
                 alert(JSON.parse(xmlHttp.responseText).response)
