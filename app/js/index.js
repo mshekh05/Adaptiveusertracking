@@ -45,19 +45,19 @@ $('.tab a').on('click', function (e) {
 
 document.getElementById("login-submit").onclick = function (event) { 
     event.preventDefault();
-	alert("hello2");
+	// alert("hello2");
 
 
 	var username = document.getElementById("log-username").value;
     var password  = document.getElementById("log-password").value;
-        alert(username)
+        // alert(username)
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             // alert(JSON.parse(xmlHttp.responseText).quote);
             
             if (JSON.parse(xmlHttp.responseText).response == "Success"){
-                alert("Login Success")
+                // alert("Login Success")
                 window.location.replace('main.html');
                 // myStorage = window.localStorage;
                 // // chrome.storage.local.set({'username1': username});
@@ -86,7 +86,7 @@ document.getElementById("login-submit").onclick = function (event) {
 
 document.getElementById("signup-submit").onclick = function (event) { 
     event.preventDefault();
-	alert("hello");
+	// alert("hello");
 
     var fname = document.getElementById("signup-fname").value;
     var lname = document.getElementById("signup-lname").value;
@@ -100,7 +100,7 @@ document.getElementById("signup-submit").onclick = function (event) {
             // alert(JSON.parse(xmlHttp.responseText).quote);
             
             if (JSON.parse(xmlHttp.responseText).response == "Success"){
-                alert("new user created")
+                // alert("new user created")
                 window.location.replace('main.html');
             }
             else{
