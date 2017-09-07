@@ -104,7 +104,7 @@ if(action_submit != undefined){
 
 
 var action_vote_up = document.getElementsByClassName('vote-up-off');
-var question = document.getElementsByClassName('question_hyperlink');
+var question = document.getElementsByClassName('question-hyperlink')[0];
 for(var i=0;i<action_vote_up.length;i++){
   action_vote_up[i].onclick = function () {
     var link = question.innerHTML;
@@ -115,7 +115,7 @@ for(var i=0;i<action_vote_up.length;i++){
 }
 
 var action_vote_down = document.getElementsByClassName('vote-down-off');
-var question = document.getElementsByClassName('question_hyperlink');
+var question = document.getElementsByClassName('question-hyperlink')[0];
 for(var i=0;i<action_vote_down.length;i++){
   action_vote_down[i].onclick = function () {
     var link = question.innerHTML;
@@ -127,7 +127,7 @@ for(var i=0;i<action_vote_down.length;i++){
 
 
 var action_favorite = document.getElementsByClassName('star-off');
-var question = document.getElementsByClassName('question_hyperlink');
+var question = document.getElementsByClassName('question-hyperlink')[0];
 for(var i=0;i<action_favorite.length;i++){
   action_favorite[i].onclick = function () {
     var link = question.innerHTML;
