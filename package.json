@@ -27,7 +27,7 @@
     "url": "https://github.com/petecoop/generator-express.git"
   },
   "scripts": {
-    "prestart": "next build",
+    
     "start": "node app/index.js",
     
     "test": "mocha",
