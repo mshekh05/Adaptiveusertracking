@@ -217,10 +217,10 @@ app.get('/logout', (request, response) => {
 
 
 
-// app.listen(app.get('port'), () => {
-// console.log(`server listening on port : ${app.get('port')}`);
-// });
-
-server.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+app.listen(app.get('port'), () => {
+console.log(`server listening on port : ${app.get('port')}`);
 });
+
+// server.listen(process.env.PORT || 3000, function(){
+//   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+// });
