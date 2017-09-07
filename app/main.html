@@ -35,12 +35,12 @@
                   </div>
               </div>
 
-              <div class="at-floating-card">
+              <div id= "at-floating-card" class="at-floating-card">
                   
                   <div class="at-floating-card__content">
                     <h2 class="at-floating-card__title">Hello <span id="username2" class="blue"></span></h2>
                     <h3 class="at-floating-card__sub-title">Welcome to your user profile page</h3>
-                    <p class="at-floating-card__description">The table above this card is the reason why we are tracking your action. Dont worry you can view the log too. <b> Just click the table on the left</b> </p>
+                    <p class="at-floating-card__description">The table above this card is the reason why we are tracking your action. Dont worry you can view the log too. <b> Just click the table on the left and click me to hide this message</b> </p>
                     
                   </div>
                 </div>
@@ -87,7 +87,7 @@
   <script>
       
     // var table = " <table class='table-fill'>  <thead>  <tr>  <th class='text-left'>Date</th>  <th class='text-left'>Time</th>  </tr>  </thead>  <tbody class='table-hover'> "
-    table = "<table class='container'> <thead> <tr> <th><h1>User Login Date</h1></th>              <th><h1>User Login Time</h1></th>                          </tr>          </thead>          <tbody>"
+    table = "<table class='container'> <thead> <tr> <th><h1>User Login Date</h1></th>              <th><h1>User Login Time (UTC)</h1></th>                          </tr>          </thead>          <tbody>"
     table2=  "<table class='container'> <thead> <tr> <th><h1>User Action</h1></th>     <th><h1>Timestamp</h1></th>          <th><h1>Link</h1></th>   <th><h1>Description</h1></th>                         </tr>          </thead>          <tbody>"
       var myStorage = window.localStorage;
     
@@ -129,7 +129,10 @@
     
     xmlhttp.send()
 
-  
+    document.getElementById("at-floating-card").onclick = function () { 
+      console.log("Clicked")
+      document.getElementById('at-floating-card').style.display = 'none'
+    }
   document.getElementById("button-logout").onclick = function () { 
    
     
@@ -156,6 +159,7 @@
           trigger: 'click'
         });
     });
+  
  // (function() {
   //   var cards = document.querySelectorAll(".card.effect__click");
   //   for ( var i  = 0, len = cards.length; i < len; i++ ) {
