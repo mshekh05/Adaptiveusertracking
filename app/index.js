@@ -100,9 +100,13 @@ pwd = request.body.password;
 // console.log("hello1");
 MongoClient.connect(url, function (err, db) {
   // console.log("hello2");
+  var today = new Date();
+  console.log(today)
+  var dd = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+  var time = ("0" + today.getHours()).slice(-2) + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
   if (err) throw err;
   var query = { username: user, fname: fname, lname: lname, email: email, password: pwd };
-  var query_log = { username: user, log: [] }
+  var query_log = { username: user, log: [{date: dd, time: time}] }
   var query_activity = { username: user, activity: [] }
   var validate = {
     $or: [
