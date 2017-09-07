@@ -102,6 +102,10 @@
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
             console.log(myObj)
+            if (myObj.username== undefined || !myObj.username)
+            {window.location.replace('index.html');
+              
+            }
             document.getElementById("username").innerHTML += '  '+ myObj.username;
             document.getElementById("username2").innerHTML += '  '+ myObj.username;
             for (x in myObj.log.reverse()) {
