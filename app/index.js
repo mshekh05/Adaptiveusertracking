@@ -60,7 +60,7 @@ MongoClient.connect(url, function (err, db) {
       request.session.user = user;
       var today = new Date();
       console.log(today)
-      var dd = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+      var dd = today.getMonth()+1 + '/' + today.getDate() + '/' + today.getFullYear();
       var time = ("0" + today.getHours()).slice(-2) + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
       console.log(dd, time)
       db.collection("user_login_log").update(query2, { $push: { log: { date: dd, time: time } } }, function (err, added) {
@@ -102,7 +102,7 @@ MongoClient.connect(url, function (err, db) {
   // console.log("hello2");
   var today = new Date();
   console.log(today)
-  var dd = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+  var dd = today.getMonth()+1 + '/' + today.getDate() + '/' + today.getFullYear();
   var time = ("0" + today.getHours()).slice(-2) + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
   if (err) throw err;
   var query = { username: user, fname: fname, lname: lname, email: email, password: pwd };

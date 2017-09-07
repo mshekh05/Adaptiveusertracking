@@ -8,11 +8,11 @@ var question = document.getElementsByClassName('question-hyperlink');
 
 for (var i=0; i < question.length; i++) {
   question[i].onclick = function(){
-    alert(this.innerHTML);
+    // alert(this.innerHTML);
     var link=this.innerHTML
     var action="Question selected"
     var description = "User selected a question"
-    alert(link +' **** ' + action  +'  ' +  description)
+    // alert(link +' **** ' + action  +'  ' +  description)
     chrome.runtime.sendMessage({action:action,actionLink:link,actionDesc:description});
   }
 }
@@ -71,9 +71,9 @@ for(var i=0; i<comments.length;i++){
   }
 }
 
-var search = document.getElementsByClassName('js-search-submit');
-for(var i=0;i<search.length;i++){
-  search[i].onclick = function () {
+var action_search = document.getElementsByClassName('js-search-submit');
+for(var i=0;i<action_search.length;i++){
+  action_search[i].onclick = function () {
     var action="Searched"
     var description = "User is Searching"
     var link = document.getElementsByClassName('js-search-field')[0].value;
@@ -81,11 +81,12 @@ for(var i=0;i<search.length;i++){
   }
 }
 
-var submit = document.getElementById('submit-button');
-if(submit != undefined){
-  submit.onclick = function () {
-    var title = document.getElementsById('title');
+var action_submit = document.getElementById('submit-button');
+if(action_submit != undefined){
+  action_submit.onclick = function () {
     var question = document.getElementById('wmd-input').value();
+    var questiontitle = document.getElementsById('title');
+    
     if(title == ""){
       var action="Answer posted"
       var description = "User Answered a question"
@@ -94,7 +95,7 @@ if(submit != undefined){
     else{
       var action="Question posted"
       var description = "User posted a Question"
-      var link = title+"\n"+question;
+      var link = questiontitle+"\n"+question;
     }
     chrome.runtime.sendMessage({action:action,actionLink:link,actionDesc:description});
   }
@@ -102,22 +103,22 @@ if(submit != undefined){
 
 
 
-var vote_up = document.getElementsByClassName('vote-up-off');
-var question_text = document.getElementsByClassName('question_hyperlink');
-for(var i=0;i<vote_up.length;i++){
-  vote_up[i].onclick = function () {
-    var link = question_text.innerHTML;
+var action_vote_up = document.getElementsByClassName('vote-up-off');
+var question = document.getElementsByClassName('question_hyperlink');
+for(var i=0;i<action_vote_up.length;i++){
+  action_vote_up[i].onclick = function () {
+    var link = question.innerHTML;
     var action="Vote-up"
     var description = "User Voted up on a post or comment"
     chrome.runtime.sendMessage({action:action,actionLink:link,actionDesc:description});
   }
 }
 
-var vote_down = document.getElementsByClassName('vote-down-off');
-var question_text = document.getElementsByClassName('question_hyperlink');
-for(var i=0;i<vote_down.length;i++){
-  vote_down[i].onclick = function () {
-    var link = question_text.innerHTML;
+var action_vote_down = document.getElementsByClassName('vote-down-off');
+var question = document.getElementsByClassName('question_hyperlink');
+for(var i=0;i<action_vote_down.length;i++){
+  action_vote_down[i].onclick = function () {
+    var link = question.innerHTML;
     var action="Vote-down"
     var description = "User Voted down on a post or comment"
     chrome.runtime.sendMessage({action:action,actionLink:link,actionDesc:description});
@@ -125,11 +126,11 @@ for(var i=0;i<vote_down.length;i++){
 }
 
 
-var favorite = document.getElementsByClassName('star-off');
-var question_text = document.getElementsByClassName('question_hyperlink');
-for(var i=0;i<favorite.length;i++){
-  favorite[i].onclick = function () {
-    var link = question_text.innerHTML;
+var action_favorite = document.getElementsByClassName('star-off');
+var question = document.getElementsByClassName('question_hyperlink');
+for(var i=0;i<action_favorite.length;i++){
+  action_favorite[i].onclick = function () {
+    var link = question.innerHTML;
     var action="Star"
     var description = "User saved on a post or comment"
     chrome.runtime.sendMessage({action:action,actionLink:link,actionDesc:description});

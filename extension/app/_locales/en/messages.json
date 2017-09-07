@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "AWAssign1",
+    "message": "AW_MOHD_EXTENSION",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "My Chrome Extension",
+    "message": "My AW Extension",
     "description": "The description of the application"
   }
 }

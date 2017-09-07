@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     })
   }
   if(request.action && request.actionLink && request.actionDesc ){
-    alert("hello1")
+    // alert("hello1")
     logAction( request.action,request.actionLink,request.actionDesc);
   }
 });
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
 chrome.runtime.onMessageExternal.addListener(
   function(request, sender, sendResponse) {
-    alert("Mill gaya bawa")
+ 
     if (sender.url == blacklistedWebsite)
       return;  // don't allow this web page access
     if (request.openUrlInEditor)
@@ -39,18 +39,19 @@ chrome.runtime.onMessageExternal.addListener(
 
 function logAction( action,link,actionDesc){
   var today = new Date();
-  var dd = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+  var dd = today.getMonth()+1 + '/' + today.getDate() + '/' + today.getFullYear();
   var time = ("0" + today.getHours()).slice(-2) + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
   var date_time = dd+' '+ time;
   var actionLog = {timestamp:date_time ,action:action, actionLink:link, actionDesc:actionDesc};
   var username=localStorage.getItem("username")
-  alert("hello" + username)
+ 
   
  
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if(this.readyState == 4 && this.status == 200){
       console.log("Success");
+      alert("Action recorder")
     }
     else{
       console.log("Not successful");
