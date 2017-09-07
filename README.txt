@@ -7,7 +7,7 @@ Extension:
 1. In your chrome browser go to the extension settings chrome://extensions/
 2.enable Developer Mode
 3.Click Load unpacked extension
-4. Select the app folder in  "extension/app"
+4. Select the app folder in  "AWAssign_mohd/extension/app"
 5. Complete
 
 Web app:
@@ -39,3 +39,5 @@ user_login_activity : user action tracking database
 user_login_log  	: User login log
 users               : User details
 
+Sources: Yeoman boilerplate code
+www.codepen.com
