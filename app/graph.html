@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://www.google.com/jsapi"></script>
-
+<link rel="stylesheet" href="css/test.css">
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart', 'controls']});
         google.charts.setOnLoadCallback(drawSeriesChart);
@@ -64,29 +64,29 @@
                             if (activity[j].actionLink.indexOf("python")!= -1 ||activity[j].actionLink.indexOf("PYTHON")!= -1  ||activity[j].actionLink.indexOf("Python")!= -1   ){
                                 python+=1
                                 generalPython+=1
-                                if (activity[j].action=="Question selected" ){
-                                    questions.push([username,"Python",activity[j].actionLink])
+                                if (activity[j].action=="Question selected" || activity[j].action=="Vote-up" || activity[j].action=="Vote-down"){
+                                    questions.push([username,"Python",activity[j].action,activity[j].actionLink])
                                 }
                         }
                         else if (activity[j].actionLink.indexOf("java")!= -1 ||activity[j].actionLink.indexOf("JAVA")!= -1  ||activity[j].actionLink.indexOf("Java")!= -1   ){
                                 java+=1
                                 generalJava+=1
-                                if (activity[j].action=="Question selected" ){
-                                    questions.push([username,"Java",activity[j].actionLink])
+                                if (activity[j].action=="Question selected" || activity[j].action=="Vote-up" || activity[j].action=="Vote-down"){
+                                    questions.push([username,"Java",activity[j].action,activity[j].actionLink])
                                 }
                         }
                         else if (activity[j].actionLink.indexOf("ruby")!= -1 ||activity[j].actionLink.indexOf("Ruby")!= -1  ||activity[j].actionLink.indexOf("Ruby")!= -1   ){
                                 javascript+=1
                                 generalJavascript+=1
-                                if (activity[j].action=="Question selected" ){
-                                    questions.push([username,"Ruby",activity[j].actionLink])
+                                if (activity[j].action=="Question selected" || activity[j].action=="Vote-up" || activity[j].action=="Vote-down" ){
+                                    questions.push([username,"Ruby",activity[j].action,activity[j].actionLink])
                                 }
                         }
                         else if (activity[j].actionLink.indexOf("C++")!= -1 ||activity[j].actionLink.indexOf("C++")!= -1  ||activity[j].actionLink.indexOf("C++")!= -1   ){
                                 cpp+=1
                                 generalCpp+=1
-                                if (activity[j].action=="Question selected" ){
-                                    questions.push([username,"C++",activity[j].actionLink])
+                                if (activity[j].action=="Question selected" || activity[j].action=="Vote-up" || activity[j].action=="Vote-down"){
+                                    questions.push([username,"C++",activity[j].action,activity[j].actionLink])
                                 }
                         }
                            
@@ -184,7 +184,7 @@
           'options': {
             animation: {"startup": true,duration: 1000,
             easing: 'out',},
-                    title: 'This is a graph plotting the number of time a perticular user has searched a language (python,ruby,java C++) on stack overflow vs the times they searched it for job hence helping us determine there interest in the language. The size of the bubble is the totazl time the User acted on with regards to a language.  ',
+                    title: 'This is a graph plotting the number of time a perticular user has searched a language (python,ruby,java C++) on stack overflow vs the times they searched it for job hence helping us determine there interest in the language. The size of the bubble is the totazl time the User acted on with regards to a language. Click on Bubble to see the list of all the Questions acted on by the user.  ',
                     hAxis: { title: 'Jobs' },
                     vAxis: { title: 'Search/Questions' },
                     bubble: {
@@ -236,6 +236,7 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Username');
         data.addColumn('string', 'Language');
+        data.addColumn('string', 'Action');
         data.addColumn('string', 'Question');
       
         data.addRows(data2);
@@ -269,7 +270,35 @@
                             <td><div id="tab_div"style="width:50vw;height:50vh"></div></td>
             </tr>
         </table>
+
               </div>
+              <table class="container" style="width:35%;height:50%;">
+                    <thead>
+                      <tr>
+                        <th><h1>Analysis</h1></th>
+                        <th><h1>Reason</h1></th>
+                                           </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>User ccc is Job centeric</td>
+                        <td>Based on the first graph if you select a filter criteria as Searches done is less than 5  you will see that all the languages of User ccc has been displayed. Hence The users data can be discarder for academic purposes</td>
+                        
+                      </tr>
+                      <tr>
+                        <td>User bbb is ideal for Academic centric research</td>
+                        <td>Based on the first graph if you select a filter criteria as Jobs done is less than 5  you will see that all the languages of User ccc has been filtered in. Hence The users data is ideal as he has a wide range of Programming interest. On click one of users bubbule we can see that he has acted upon a wide array of questions</td>
+                        
+                      </tr>
+                      <tr>
+                        <td>Python and Java are trending languages</td>
+                        <td>Based on the first graph if you select a filter criteria as Searches done are atleast 10  you will see that most users are intersted a lot in python and java hence these languages can be tracked as trending and users should be suggested posts regarding these languages.</td>
+                      
+                      </tr>
+                     
+                      
+                    </tbody>
+                  </table>
    
 </body>
 
