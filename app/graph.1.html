@@ -1,0 +1,177 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart', 'controls']});
+        google.charts.setOnLoadCallback(drawSeriesChart);
+        
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                myObj = JSON.parse(this.responseText);
+                console.log("here")
+                var graphData = new Array(['Action', 'Jobs', 'Search', 'User',     'Total'])
+                var generalPython= 0 
+                var generalJava = 0
+                var generalJavascript= 0 
+                var generalCpp = 0
+                var generalPythonJ= 0 
+                var generalJavaJ = 0
+                var generalJavascriptJ= 0 
+                var generalCppJ = 0
+                
+                for(i=0;i<myObj.log.length;i++){
+                    var username = myObj.log[i].username
+                    var python=0
+                    var pythonJ = 0
+                    var java=0
+                    var javaJ = 0
+                    var javascript=0
+                    var javascriptJ = 0
+                    var cpp=0
+                    var cppJ = 0
+                    
+                    var activity = myObj.log[i].activity
+                    console.log(username)
+                    // console.log(activity)
+                    for(j=0;j<activity.length;j++ )
+                    {
+                        if(activity[j].action=="Jobs" ||  activity[j].action=="Post selected" ){
+                            if (activity[j].actionLink.indexOf("python")!= -1 ||activity[j].actionLink.indexOf("PYTHON")!= -1  ||activity[j].actionLink.indexOf("Python")!= -1   ){
+                                pythonJ+=1
+                                generalPythonJ+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("java")!= -1 ||activity[j].actionLink.indexOf("JAVA")!= -1  ||activity[j].actionLink.indexOf("Java")!= -1   ){
+                                javaJ+=1
+                                generalJavaJ+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("ruby")!= -1 ||activity[j].actionLink.indexOf("Ruby")!= -1  ||activity[j].actionLink.indexOf("Ruby")!= -1   ){
+                                javascriptJ+=1
+                                generalJavascriptJ+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("C++")!= -1 ||activity[j].actionLink.indexOf("c++")!= -1  ||activity[j].actionLink.indexOf("Cplusplus")!= -1   ){
+                                cppJ+=1
+                                generalCppJ+=1
+                        }
+                           
+                        }
+                        else {
+                            if (activity[j].actionLink.indexOf("python")!= -1 ||activity[j].actionLink.indexOf("PYTHON")!= -1  ||activity[j].actionLink.indexOf("Python")!= -1   ){
+                                python+=1
+                                generalPython+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("java")!= -1 ||activity[j].actionLink.indexOf("JAVA")!= -1  ||activity[j].actionLink.indexOf("Java")!= -1   ){
+                                java+=1
+                                generalJava+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("ruby")!= -1 ||activity[j].actionLink.indexOf("Ruby")!= -1  ||activity[j].actionLink.indexOf("Ruby")!= -1   ){
+                                javascript+=1
+                                generalJavascript+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("C++")!= -1 ||activity[j].actionLink.indexOf("C++")!= -1  ||activity[j].actionLink.indexOf("C++")!= -1   ){
+                                cpp+=1
+                                generalCpp+=1
+                        }
+                           
+                        }
+                        // Language tracking
+                        
+
+                    }
+                    if (username=="aaa" || username=="bbb" || username=="ccc")
+                    {
+                    graphData.push(["Python",pythonJ,python,username,python+pythonJ])
+                    graphData.push(["Java",javaJ,java,username,java+javaJ])
+                    graphData.push(["Ruby",javascriptJ,javascript,username,javascript+javascriptJ])
+                    graphData.push(["C++",cppJ,cpp,username,cpp+cppJ])
+                }
+
+                    console.log(graphData)
+
+                }
+                // graphData.push(["Python",generalPythonJ,generalPython,"General",generalPythonJ+generalPython])
+                // graphData.push(["Java",generalJavaJ,generalJava,"General",generalJavaJ+generalJava])
+                // graphData.push(["Ruby",generalJavascriptJ,generalJavascript,"General",generalJavascriptJ+generalJavascript])
+                // graphData.push(["C++",generalCppJ,generalCpp,"General",generalCppJ+generalCpp])
+                
+                drawSeriesChart(graphData)
+               
+
+            }
+        }
+        xmlHttp.open("POST", "/allActions", true); // true for asynchronous 
+        xmlHttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        xmlHttp.send(JSON.stringify({
+
+          
+
+        }));
+
+        function drawSeriesChart(Data) {
+            console.log(Data)
+
+            var data = google.visualization.arrayToDataTable(Data);
+
+            var options = {
+                // backgroundColor:'#C8CFD5',
+                animation: {"startup": true,duration: 1000,
+        easing: 'out',},
+                title: 'Correlation between life expectancy, fertility rate ' +
+                'and population of some world countries (2010)',
+                hAxis: { title: 'Jobs' },
+                vAxis: { title: 'Search/Questions' },
+                bubble: {
+      textStyle: {
+        fontSize: 12,
+        fontName: 'Times-Roman',
+        
+        color: 'green',
+        bold: true,
+        italic: true
+      }
+    }
+            };
+            var dashboard = new google.visualization.Dashboard(
+            document.getElementById('dashboard_div'));
+
+        // Create a range slider, passing some options
+        var donutRangeSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'filter_div',
+          'options': {
+            'filterColumnLabel': 'Search'
+          }
+        });
+          function selectHandler() {
+    var selectedItem = chart.getSelection()[0];
+    if (selectedItem) {
+      var value = data.getValue(selectedItem.row, selectedItem.column);
+      alert('The user selected ' + value);
+    }
+  }
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+            dashboard.bind(donutRangeSlider, chart);
+            
+                    // Draw the dashboard.
+                    dashboard.draw(data);
+        }
+
+        
+        
+    </script>
+</head>
+
+<body style = "background-color:#1F2739;">
+        <div id="dashboard_div">
+                <!--Divs that will hold each control and chart-->
+                <div id="filter_div"></div>
+                <div id="chart_div"></div>
+              </div>
+   
+</body>
+
+</html>

@@ -81,7 +81,11 @@ document.getElementById("login-submit").onclick = function (event) {
      
 
 };
+document.getElementById("button-graph").onclick = function (event) { 
+    event.preventDefault();
+    window.location.replace('graph.html');
 
+};
 
 
 document.getElementById("signup-submit").onclick = function (event) { 

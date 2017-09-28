@@ -181,7 +181,6 @@ console.log("USER:" +request.session.user)
             response.json({ "response": "Failed" });
           }
           else {
-           
             response.json({username:user,log:result1.log,activity:result2.activity});
             db.close();
           }
@@ -191,24 +190,16 @@ console.log("USER:" +request.session.user)
     });
   });
 
-
-// }
-// else {response.json({ "response": "Failed" });}
 });
 
-
 app.post('/action', (request, response) => {
-
 var user = request.session.user;
 console.log(user)
 action = request.body
 console.log(action)
 MongoClient.connect(url, function (err, db) {
   // console.log("hello2");
- 
   var query2 = { username: user };
-
- 
       db.collection("user_login_activity").update(query2, { $push: { activity: action } }, function (err, added) {
         if (err || !added) {
           console.log("Track not added.");
@@ -217,17 +208,30 @@ MongoClient.connect(url, function (err, db) {
           console.log("added");
         }
       });
-     
-
       db.close();
       response.json({ "response": "Success" });
-      
-    
-
 });
 });
 
 
+
+
+app.post('/allActions', (request, response) => {
+  
+  
+ 
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  db.collection("user_login_activity").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    response.json({log:result});
+    db.close();
+  });
+});
+  });
+
+
+  
 app.get('/logout', (request, response) => {
   request.session.reset();
   response.json();

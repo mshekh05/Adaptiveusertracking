@@ -1,0 +1,276 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart', 'controls']});
+        google.charts.setOnLoadCallback(drawSeriesChart);
+        var questions = [];
+
+        
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                myObj = JSON.parse(this.responseText);
+                console.log("here")
+                var graphData = new Array(['Language', 'Jobs', 'Search', 'User',     'Total'])
+                var generalPython= 0 
+                var generalJava = 0
+                var generalJavascript= 0 
+                var generalCpp = 0
+                var generalPythonJ= 0 
+                var generalJavaJ = 0
+                var generalJavascriptJ= 0 
+                var generalCppJ = 0
+                
+                for(i=0;i<myObj.log.length;i++){
+                    var username = myObj.log[i].username
+                    var python=0
+                    var pythonJ = 0
+                    var java=0
+                    var javaJ = 0
+                    var javascript=0
+                    var javascriptJ = 0
+                    var cpp=0
+                    var cppJ = 0
+                    
+                    var activity = myObj.log[i].activity
+                    console.log(username)
+                    // console.log(activity)
+                    for(j=0;j<activity.length;j++ )
+                    {
+                        if(activity[j].action=="Jobs" ||  activity[j].action=="Post selected" ){
+                            if (activity[j].actionLink.indexOf("python")!= -1 ||activity[j].actionLink.indexOf("PYTHON")!= -1  ||activity[j].actionLink.indexOf("Python")!= -1   ){
+                                pythonJ+=1
+                                generalPythonJ+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("java")!= -1 ||activity[j].actionLink.indexOf("JAVA")!= -1  ||activity[j].actionLink.indexOf("Java")!= -1   ){
+                                javaJ+=1
+                                generalJavaJ+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("ruby")!= -1 ||activity[j].actionLink.indexOf("Ruby")!= -1  ||activity[j].actionLink.indexOf("Ruby")!= -1   ){
+                                javascriptJ+=1
+                                generalJavascriptJ+=1
+                        }
+                        else if (activity[j].actionLink.indexOf("C++")!= -1 ||activity[j].actionLink.indexOf("c++")!= -1  ||activity[j].actionLink.indexOf("Cplusplus")!= -1   ){
+                                cppJ+=1
+                                generalCppJ+=1
+                        }
+                           
+                        }
+                        else {
+                            if (activity[j].actionLink.indexOf("python")!= -1 ||activity[j].actionLink.indexOf("PYTHON")!= -1  ||activity[j].actionLink.indexOf("Python")!= -1   ){
+                                python+=1
+                                generalPython+=1
+                                if (activity[j].action=="Question selected" ){
+                                    questions.push([username,"Python",activity[j].actionLink])
+                                }
+                        }
+                        else if (activity[j].actionLink.indexOf("java")!= -1 ||activity[j].actionLink.indexOf("JAVA")!= -1  ||activity[j].actionLink.indexOf("Java")!= -1   ){
+                                java+=1
+                                generalJava+=1
+                                if (activity[j].action=="Question selected" ){
+                                    questions.push([username,"Java",activity[j].actionLink])
+                                }
+                        }
+                        else if (activity[j].actionLink.indexOf("ruby")!= -1 ||activity[j].actionLink.indexOf("Ruby")!= -1  ||activity[j].actionLink.indexOf("Ruby")!= -1   ){
+                                javascript+=1
+                                generalJavascript+=1
+                                if (activity[j].action=="Question selected" ){
+                                    questions.push([username,"Ruby",activity[j].actionLink])
+                                }
+                        }
+                        else if (activity[j].actionLink.indexOf("C++")!= -1 ||activity[j].actionLink.indexOf("C++")!= -1  ||activity[j].actionLink.indexOf("C++")!= -1   ){
+                                cpp+=1
+                                generalCpp+=1
+                                if (activity[j].action=="Question selected" ){
+                                    questions.push([username,"C++",activity[j].actionLink])
+                                }
+                        }
+                           
+                        }
+                        // Language tracking
+                        
+
+                    }
+                    if (username=="aaa" || username=="bbb" || username=="ccc")
+                    {
+                    graphData.push(["Python",pythonJ,python,username,python+pythonJ])
+                    graphData.push(["Java",javaJ,java,username,java+javaJ])
+                    graphData.push(["Ruby",javascriptJ,javascript,username,javascript+javascriptJ])
+                    graphData.push(["C++",cppJ,cpp,username,cpp+cppJ])
+                }
+
+                    console.log(graphData)
+
+                }
+                // graphData.push(["Python",generalPythonJ,generalPython,"General",generalPythonJ+generalPython])
+                // graphData.push(["Java",generalJavaJ,generalJava,"General",generalJavaJ+generalJava])
+                // graphData.push(["Ruby",generalJavascriptJ,generalJavascript,"General",generalJavascriptJ+generalJavascript])
+                // graphData.push(["C++",generalCppJ,generalCpp,"General",generalCppJ+generalCpp])
+                
+                drawSeriesChart(graphData)
+                drawTable(questions)
+               
+
+            }
+        }
+        xmlHttp.open("POST", "/allActions", true); // true for asynchronous 
+        xmlHttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        xmlHttp.send(JSON.stringify({
+
+          
+
+        }));
+
+        function drawSeriesChart(Data) {
+            console.log(Data)
+
+            var data = google.visualization.arrayToDataTable(Data);
+
+            var options = {
+                // backgroundColor:'#C8CFD5',
+               
+            };
+            var dashboard = new google.visualization.Dashboard(
+            document.getElementById('dashboard_div'));
+
+        // Create a range slider, passing some options
+        var totalSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'filter_div4',
+          'options': {
+            'filterColumnLabel': 'Total'
+            
+          }
+        });
+        var jobSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'filter_div3',
+          'options': {
+            'filterColumnLabel': 'Jobs'
+            
+          }
+        });
+        var searchSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'filter_div2',
+          'options': {
+            'filterColumnLabel': 'Search'
+            
+          }
+        });
+        var langSelector = new google.visualization.ControlWrapper({
+            'controlType': 'CategoryFilter',
+            'containerId': 'filter_div1',
+            'options': {
+              'filterColumnLabel': 'Language'
+              
+            }
+          });
+        var userSelector = new google.visualization.ControlWrapper({
+          'controlType': 'CategoryFilter',
+          'containerId': 'filter_div',
+          'options': {
+            'filterColumnLabel': 'User'
+            
+          }
+        });
+        var pieChart = new google.visualization.ChartWrapper({
+          'chartType': 'BubbleChart',
+          'containerId': 'chart_div',
+          'options': {
+            animation: {"startup": true,duration: 1000,
+            easing: 'out',},
+                    title: 'This is a graph plotting the number of time a perticular user has searched a language (python,ruby,java C++) on stack overflow vs the times they searched it for job hence helping us determine there interest in the language. The size of the bubble is the totazl time the User acted on with regards to a language.  ',
+                    hAxis: { title: 'Jobs' },
+                    vAxis: { title: 'Search/Questions' },
+                    bubble: {
+          textStyle: {
+            fontSize: 12,
+            fontName: 'Times-Roman',
+            
+            color: 'green',
+            bold: true,
+            italic: true
+          }
+        }
+          }
+        });
+        google.visualization.events.addListener(pieChart, 'ready', onReady);
+
+            // var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+            dashboard.bind([userSelector,langSelector,totalSlider,jobSlider,searchSlider], pieChart);
+           
+            
+                    // Draw the dashboard.
+                    dashboard.draw(data);
+                    function onReady() {
+    google.visualization.events.addListener(pieChart.getChart(), 'select', usefulHandler);
+  }
+  function usefulHandler() {
+    var selectedItem = pieChart.getChart().getSelection()[0];
+        var user = data.getValue(selectedItem.row, 3);
+        var lang = data.getValue(selectedItem.row, 0);
+        var new_data = []
+        for(i=0;i<questions.length;i++)
+        {
+            console.log(questions[i][0])
+            if (questions[i][0]==user && questions[i][1] == lang){
+                new_data.push(questions[i])
+            }
+        }
+        
+        drawTable(new_data)
+  }
+        }
+
+
+
+        google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable(data2) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Username');
+        data.addColumn('string', 'Language');
+        data.addColumn('string', 'Question');
+      
+        data.addRows(data2);
+
+        var table = new google.visualization.Table(document.getElementById('tab_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+      }
+
+
+        
+        
+    </script>
+</head>
+
+<body style = "background-color:#1F2739;">
+        <div id="dashboard_div" style="background-color:white">
+                <!--Divs that will hold each control and chart-->
+                <table class="columns">
+                        <tr>
+                          <td><div id="filter_div" style="border: 1px solid #ccc"></div></td>
+                          <td><div id="filter_div1" style="border: 1px solid #ccc"></div></td>
+                          <td><div id="filter_div2" style="border: 1px solid #ccc"></div></td>
+                          <td><div id="filter_div3" style="border: 1px solid #ccc"></div></td>
+                          <td><div id="filter_div4" style="border: 1px solid #ccc"></div></td>
+                        </tr>
+                      </table>
+                      <table class="columns2"> 
+                      <tr>
+                            <td><div id="chart_div"style="width:50vw;height:50vh"></div></td>
+                            <td><div id="tab_div"style="width:50vw;height:50vh"></div></td>
+            </tr>
+        </table>
+              </div>
+   
+</body>
+
+</html>
